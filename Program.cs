@@ -8,25 +8,55 @@
 //in the second class should return that array containing the roll results to the first class. In the first
 //class, use that array to print a histogram (using the* character) that shows the total percentage
 //each number was rolled. Each * will represent 1% of the total rolls.
-using System;
+using System.Diagnostics.Metrics;
+
+namespace mission02;
+
 internal class Program
 {
+
     private static void Main(string[] args)
     {
-        int[] history;
-        Random random = new Random();
-
-        int dice1 = random.Next(1, 7); // Generates a random number between 1 and 6
-        int dice2 = random.Next(1, 7); // Generates a random number between 1 and 6
-
-       
         Console.WriteLine("Welcome to the dice throwing simulator!");
-        Console.WriteLine("How many dice rolls would you like to simulate?: ");
-        string howmanydice = Console.ReadLine();
-        
+        Console.WriteLine();
+        Console.Write("How many dice rolls would you like to simulate?  ");
+        string userInput = Console.ReadLine();
+        //turn string to int
+        int number_of_rolls = int.Parse(userInput);
+        //int number_of_rolls = Convert.ToInt32(Console.ReadLine());
 
-        Console.WriteLine("DICE ROLLING SIMULATION RESULTS\r\nEach \"*\" represents 1% of the total number of rolls.\r\nTotal number of rolls = " + howmanydice + ".");
-        Console.WriteLine("Thank you for using the dice throwing simulator. Goodbye!\r\n");
-        
+        //call nect class
+        Class1 test = new Class1();
+        int[] test2 = test.RollDice(number_of_rolls);
+        //start lable
+        int lable = 2;
+
+        Console.WriteLine();
+        Console.WriteLine("DICE ROLLING SIMULATION RESULTS");
+        Console.WriteLine("Each ''*'' represents 1% of the total number of rolls.");
+        Console.WriteLine("Total number of rolls = " + number_of_rolls);
+        Console.WriteLine();
+
+        // loop through the returned array
+        foreach (var item in test2)
+        {
+            //find percent
+            int percent = item * 100 / number_of_rolls;
+
+            Console.Write(lable + ": ");
+
+            //print a star for each percent
+            for (int i = 0; i < percent; i++)
+            {
+                Console.Write("*");
+            }
+            Console.WriteLine();
+
+            // advance lable
+            lable = lable + 1;
+
+        }
+        Console.WriteLine();
+        Console.WriteLine("Thank you for using the dice throwing simulator. Goodbye!");
     }
 }
